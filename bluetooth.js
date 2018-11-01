@@ -7,8 +7,8 @@ angular.module('bleApp', [])
             // Step 1: Scan for a device with 0xffe5 service
             navigator.bluetooth.requestDevice({
                 //filters: [{ services: [0xffe5] }]
-                acceptAllDevices: true,
-                optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
+                acceptAllDevices: true
+               // optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
                 /*filters: [{
                     services: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
                 }]*/
