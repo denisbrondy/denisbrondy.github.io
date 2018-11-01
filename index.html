@@ -1,3 +1,23 @@
-<html>
-<body>Hello</body>
+<!doctype html>
+<html ng-app="bleApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#2F3BA2" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/sw.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/bluetooth.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <title>My super App</title>
+</head>
+
+<body>
+    <h1>Hello !!!!!!!!</h1>
+    <div ng-controller="BluetoothController">
+        <button type="button" class="btn btn-primary" ng-click="connect()">Connect</button>
+    </div>
+</body>
+
 </html>
