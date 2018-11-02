@@ -15,8 +15,10 @@
 
 <body>
     <h1>Hello !!!!!!!!</h1>
-    <div ng-controller="BluetoothController">
-        <button type="button" class="btn btn-primary" ng-click="connect()">Connect</button>
+    <div ng-controller="BluetoothController as $ctrl">
+        {{$ctrl.status}}
+        <button type="button" class="btn btn-primary" ng-click="$ctrl.connect()">Scan</button>
+<div>{{$ctrl.datadenis}}</div>
     </div>
 </body>
 
