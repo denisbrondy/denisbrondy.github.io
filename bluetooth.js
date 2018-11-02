@@ -1,26 +1,91 @@
 
+function stringToArrayBuffer(str) {
+    // assuming 8 bit bytes
+    var ret = new Uint8Array(str.length);
+    for (var i = 0; i < str.length; i++) {
+        ret[i] = str.charCodeAt(i);
+    }
+    return ret.buffer;
+}
+
 angular.module('bleApp', [])
     .controller('BluetoothController', ['$scope', function ($scope) {
-        console.log('Init controller');
         var ctrl = this;
         ctrl.status = 'Disconnected';
-        ctrl.datadenis = 1;
+        ctrl.pushedData = '';
 
-       /* $scope.test = function (event) {
-            console.log('Received ');
-        };*/
+        var BLService;
+        var BLDevice;
 
-        ctrl.connect = function () {
+        ctrl.send = function () {
+            BLService.getCharacteristic('8a21ad2c-279d-41d1-94bf-6916ecbb3695').then(function (characteristic) {
+                return characteristic.writeValue(stringToArrayBuffer(ctrl.dataToWrite));
+            }).catch(ctrl.handleError);
+        };
+
+        ctrl.receiveService = function (service) {
+            BLService = service;
+            service.getCharacteristic('38149ecc-adb2-4ff3-89d5-6083d52c5e9f').then(function (characteristic) {
+                return characteristic.startNotifications();
+            })
+                .then(function (characteristic) {
+                    characteristic.addEventListener('characteristicvaluechanged',
+                        function (event) {
+                            var value = event.target.value;
+                            $scope.$apply(function () {
+                                ctrl.pushedData = value.getUint8(0);
+                            });
+                        });
+                }).catch(ctrl.handleError);
+        };
+
+        ctrl.receiveServer = function (server) {
+            ctrl.setStatus('Connected to : ' + server.device.name);
+            server.getPrimaryService('39ead0db-0bbf-449a-9af9-24001ea09aa3').then(ctrl.receiveService).catch(ctrl.handleError);
+        };
+
+        ctrl.receiveDevice = function (device) {
+            ctrl.setStatus('Connecting device : ' + device.name);
+            device.addEventListener('gattserverdisconnected', ctrl.onDisconnected);
+            BLDevice = device;
+            device.gatt.connect().then(ctrl.receiveServer).catch(ctrl.handleError);
+        };
+
+        ctrl.onDisconnected = function (event) {
+            ctrl.status = 'Disconnected';
+        };
+
+        ctrl.handleError = function (error) {
+            ctrl.setStatus('Error occured : ' + error);
+        };
+
+        ctrl.setStatus = function (status) {
+            $scope.$apply(function () {
+                ctrl.status = status;
+            });
+        };
+
+        ctrl.disconnectDevice = function () {
+            if (BLDevice.gatt.connected) {
+                BLDevice.gatt.disconnect();
+            }
+        };
+
+        ctrl.connectDevice = function () {
+            ctrl.status = 'Scanning';
+            navigator.bluetooth.requestDevice({
+                acceptAllDevices: true,
+                optionalServices: ['39ead0db-0bbf-449a-9af9-24001ea09aa3']
+            }).then(ctrl.receiveDevice).catch(ctrl.handleError);
+        };
+
+        ctrl.connect2 = function () {
             console.log('Connecting');
             ctrl.status = 'Connecting';
             // Step 1: Scan for a device with 0xffe5 service
             var myCharacteristic = navigator.bluetooth.requestDevice({
-                //filters: [{ services: [0xffe5] }]
                 acceptAllDevices: true,
-                optionalServices: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
-                /*filters: [{
-                    services: ['4fafc201-1fb5-459e-8fcc-c5c9c331914b']
-                }]*/
+                optionalServices: ['39ead0db-0bbf-449a-9af9-24001ea09aa3']
             })
                 .then(function (device) {
                     // Step 2: Connect to it
@@ -28,17 +93,17 @@ angular.module('bleApp', [])
                 })
                 .then(function (server) {
                     // Step 3: Get the Service
-                   
-                    $scope.$apply(function() {
+
+                    $scope.$apply(function () {
                         ctrl.status = 'Connected';
                     });
                     console.log('Seems connected !');
 
-                    return server.getPrimaryService('4fafc201-1fb5-459e-8fcc-c5c9c331914b');
+                    return server.getPrimaryService('39ead0db-0bbf-449a-9af9-24001ea09aa3');
                 })
                 .then(function (service) {
                     // Step 4: get the Characteristic
-                    return service.getCharacteristic('beb5483e-36e1-4688-b7f5-ea07361b26a8');
+                    return service.getCharacteristic('38149ecc-adb2-4ff3-89d5-6083d52c5e9f');
                 })
                 .then(function (characteristic) {
                     return characteristic.startNotifications();
@@ -47,14 +112,14 @@ angular.module('bleApp', [])
                 .then(function (characteristic) {
                     characteristic.addEventListener('characteristicvaluechanged',
                         function (event) {
-                            
+
                             var value = event.target.value;
                             //ctrl.datadenis = 'deeddee';
-                            $scope.$apply(function() {
-                                ctrl.datadenis = value.getUint16(0);
+                            $scope.$apply(function () {
+                                ctrl.pushedData = value.getUint8(0);
                             });
-                            
-                            console.log('Received ' + value.getUint16(0));
+
+                            console.log('Received ' + value.getUint8(0));
 
                         });
                     console.log('Notifications have been started.');
@@ -70,5 +135,5 @@ angular.module('bleApp', [])
                 });
             //var myValue = myCharacteristic.readValue();
             //console.log(myValue.getUint8(0));
-        }
+        };
     }]);
