@@ -1,47 +1,27 @@
 <!doctype html>
-<html ng-app="bleApp">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#2F3BA2" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/sw.js"></script>
-    <script src="/js/angular.min.js"></script>
-    <script src="/bluetooth.js"></script>
-    <link rel="manifest" href="/manifest.json">
-    <title>My super App</title>
-</head>
+  <meta charset="utf-8">
+  <title>Bluetooth ESP32 PWA</title>
 
+  <base href="/"/>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4e8ef7">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png">
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
+<link rel="stylesheet" href="styles.2e2fa868c0a2c8da4d57.css"></head>
 <body>
-    <div class="container" ng-controller="BluetoothController as $ctrl">
-        <form>
-            <div class="form-group">
-                <h1>Bluetooth application</h1>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.connectDevice()">Scan</button>
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.disconnectDevice()">Disconnect</button>
-            </div>
-            <div class="form-group">
-                <label><b>{{$ctrl.status}}</b></label>
-                <small id="emailHelp" class="form-text text-muted">This is the application status.</small>
-            </div>
-            <div class="form-group">
-                <label>Data received from device</label>
-                <input type="text" class="form-control" ng-model="$ctrl.pushedData" readonly>
-                <small id="emailHelp" class="form-text text-muted">A counter is pushed from the bluetooth device every second.</small>
-            </div>
-            <div class="form-group">
-                <label>Send text to the device</label>
-                <input type="text" class="form-control" ng-model="$ctrl.dataToWrite" />
-                <small id="emailHelp" class="form-text text-muted">Send a given text string and the device shall blink.</small>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" ng-click="$ctrl.send()">Send</button>
-            </div>
-        </form>
-    </div>
-
-</body>
-
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<script type="text/javascript" src="runtime.86a57a30fca52cb76313.js"></script><script type="text/javascript" src="polyfills.d592aba78616853d84b1.js"></script><script type="text/javascript" src="main.afe43e9ff6075e49ab80.js"></script></body>
 </html>
