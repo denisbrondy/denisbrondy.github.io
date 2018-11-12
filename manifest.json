@@ -1,6 +1,6 @@
 {
-  "name": "BLEESP32APP",
-  "short_name": "BLESP32",
+  "name": "MOTORBT",
+  "short_name": "MOTORBT",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
