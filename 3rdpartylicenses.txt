@@ -330,6 +330,8 @@ THE SOFTWARE.
 @angular/animations
 MIT
 
+@angular/material/core
+
 @angular/material/button
 
 @angular/material/form-field
@@ -337,13 +339,13 @@ MIT
 @angular/forms
 MIT
 
+@angular/material/select
+
 @angular/material/icon
 
 @angular/material/sidenav
 
 @angular/material/toolbar
-
-@angular/material/core
 
 @angular/material/list
 
