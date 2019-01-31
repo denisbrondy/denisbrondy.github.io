@@ -332,6 +332,8 @@ MIT
 
 @angular/material/core
 
+@angular/material/expansion
+
 @angular/flex-layout
 MIT
 The MIT License
