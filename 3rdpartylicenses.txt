@@ -330,6 +330,8 @@ THE SOFTWARE.
 @angular/animations
 MIT
 
+@angular/material/button
+
 @angular/material/core
 
 @angular/material/expansion
@@ -359,14 +361,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/material/button
-
 @angular/material/form-field
 
 @angular/forms
 MIT
 
 @angular/material/select
+
+@angular/material/dialog
 
 @angular/material/icon
 
