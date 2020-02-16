@@ -332,8 +332,6 @@ MIT
 
 @angular/material/button
 
-@angular/material/core
-
 @angular/material/expansion
 
 @angular/flex-layout
@@ -366,8 +364,6 @@ THE SOFTWARE.
 @angular/forms
 MIT
 
-@angular/material/select
-
 @angular/material/dialog
 
 @angular/material/icon
@@ -375,6 +371,8 @@ MIT
 @angular/material/sidenav
 
 @angular/material/toolbar
+
+@angular/material/core
 
 @angular/material/list
 
